@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <%- include('./partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('./partials/top-navbar') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('./partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>املاک جستجو شده</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <!--Inner Content Start-->
+    <div class="innercontent">
+      <div class="container">
+        <div class="row listing_wrap">
+          <div class="col-lg-4">
+            <form>
+              <div
+                class="sidebar_form card card-body wow fadeInUp"
+                style="visibility: visible; animation-name: fadeInUp"
+              >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    placeholder="عنوان ملک"
+                    id="search-title"
+                  />
+                  <div class="hover_icon">
+                    <a href="#"><i class="fas fa-search"></i></a>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    placeholder="شهر"
+                    id="search-city"
+                  />
+                  <div class="hover_icon">
+                    <a href="#"><i class="fas fa-map-marker-alt"></i></a>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <div class="input-group">
+                    <div
+                      class="nice-select form-control wide select_option"
+                      tabindex="0"
+                    >
+                      <span class="current">نوع ملک</span>
+                      <ul class="list propertyCategories">
+                        <% propertyCategories.forEach(category => { %>
+                        <li
+                          data-value="1"
+                          class="option"
+                          id="searchCategories-<%= category.shortName %>"
+                        >
+                          <%= category.name %>
+                        </li>
+                        <% }); %>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="nice-select wide select_option" tabindex="0">
+                    <span class="current">وضعیت ملک</span>
+                    <ul class="list propertyStatus">
+                      <% propertyStatus.forEach(status => { %>
+                      <li
+                        data-value="1"
+                        class="option"
+                        id="searchStatus-<%= status.shortName %>"
+                      >
+                        <%= status.name %>
+                      </li>
+                      <% }); %>
+                    </ul>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <div
+                    class="nice-select form-control wide select_option"
+                    tabindex="0"
+                  >
+                    <span class="current">اتاق خواب</span>
+                    <ul class="list propertyBedroom">
+                      <li
+                        data-value="Bedrooms"
+                        data-display="Bedrooms"
+                        class="option selected focus"
+                      >
+                        اتاق خواب
+                      </li>
+                      <li data-value="1" class="option">1</li>
+                      <li data-value="2" class="option">2</li>
+                      <li data-value="3" class="option">3</li>
+                      <li data-value="4" class="option">4</li>
+                      <li data-value="5" class="option">5</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="قیمت از..."
+                        id="search-lowPrice"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="قیمت تا..."
+                        id="search-highPrice"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <button class="submit" id="searchBTN">
+                    جستجو <i class="fa fa-search mr-2" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="single-widgets widget_category mt30 fadeInUp wow">
+              <h4>دسته بندی ها</h4>
+              <ul>
+                <% allCategories.forEach(category => { %>
+                <li>
+                  <a href="/category/<%= category.shortName %>"
+                    ><%= category.name %>
+                    <span><%= category.propertyID.length %></span></a
+                  >
+                </li>
+                <% }); %>
+              </ul>
+            </div>
+            <div class="single-widgets widget_category fadeInUp wow">
+              <h4>املاک اخیر</h4>
+              <ul class="property_sec">
+                <% latestProperty.forEach(property => { %>
+                <li>
+                  <div class="rec_proprty">
+                    <div class="propertyImg">
+                      <a href="/property/<%= property.propertyID %>"
+                        ><img
+                          alt=""
+                          src="<%= property.mainPicture %>"
+                          style="width: 100px; height: 70px"
+                      /></a>
+                    </div>
+                    <div class="property_info">
+                      <h4>
+                        <a href="#"
+                          >ایران , <%= property.city %> , <%= property.region
+                          %></a
+                        >
+                      </h4>
+                      <p><%= property.address %></p>
+                      <div class="priceWrp"><%= property.price %> تومان</div>
+                    </div>
+                  </div>
+                </li>
+                <% }); %>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <!--Row Start-->
+            <ul class="row">
+              <% for (let index = 0; index < properties.length; index++) { %>
+              <!--col-lg-4 Start-->
+              <li class="col-lg-6">
+                <div class="property_box wow fadeInUp">
+                  <div class="propertyImg">
+                    <a href="/property/<%= properties[index].propertyID %>"
+                      ><img
+                        src="<%= properties[index].mainPicture %>"
+                        style="width: 400px; height: 200px"
+                    /></a>
+                  </div>
+                  <h3>
+                    <a href="/property/<%= properties[index].propertyID %>"
+                      ><%= properties[index].title %></a
+                    >
+                  </h3>
+                  <div class="property_location">
+                    <i class="fas fa-map-marker-alt"></i> <%=
+                    properties[index].region %> / <%= properties[index].city %>
+                  </div>
+                  <div class="heart_info">
+                    <div class="heart_icon">
+                      <a href="#"><i class="fas fa-heart"></i></a>
+                    </div>
+                    <div class="heart_icon exchange_icon">
+                      <a href="#"><i class="fas fa-exchange-alt"></i></a>
+                    </div>
+                    <div class="property_price">
+                      <%= properties[index].price %> تومان
+                    </div>
+                  </div>
+                  <div class="propert_info">
+                    <ul class="row">
+                      <li class="col-4">
+                        <div class="proprty_icon">
+                          <i class="fas fa-bed"></i>
+                        </div>
+                        <h5>اتاق خواب <%= properties[index].bedroom %></h5>
+                      </li>
+                      <li class="col-4">
+                        <div class="proprty_icon">
+                          <i class="fas fa-ruler-horizontal"></i>
+                        </div>
+                        <h5>متراژ <%= properties[index].area %></h5>
+                      </li>
+                      <li class="col-4">
+                        <div class="proprty_icon">
+                          <i class="fas fa-warehouse"></i>
+                        </div>
+                        <h5>پارکینگ <%= properties[index].parking %></h5>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="rent_info">
+                    <div class="apart">
+                      <%= properties[index].category.name %>
+                    </div>
+                    <div class="sale"><%= properties[index].status.name %></div>
+                  </div>
+                </div>
+              </li>
+              <!--col-lg-4 End-->
+
+              <% } %>
+            </ul>
+            <!--Row End-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Inner Content End-->
+
+    <!--Footer Start-->
+    <%- include('./partials/footer') %> <%- include("./partials/scripts") %>
+    <!--Footer End-->
+    <script src="/javascripts/index/search.js"></script>
+  </body>
+</html>

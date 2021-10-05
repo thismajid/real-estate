@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <%- include('../../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>تنظیمات</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin"
+            role="tab"
+          >
+            پنل مدیریت
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/users/all"
+            role="tab"
+          >
+            مدیریت کاربران
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/status"
+            role="tab"
+          >
+            مدیریت وضعیت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/categories"
+            role="tab"
+          >
+            مدیریت دسته بندی املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/facility"
+            role="tab"
+          >
+            مدیریت امکانات املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties"
+            role="tab"
+          >
+            مدیریت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/submit"
+            role="tab"
+          >
+            ثبت ملک
+          </a>
+          <% if(user.role == 'super admin' || user.role == 'admin') { %>
+
+            <%
+            if(unreadMessagesCount > 0) { %>
+            <a
+              class="list-group-item list-group-item-action"
+              href="/admin/messages"
+              role="tab"
+            >
+              پیام های دریافتی
+              <span class="badge badge-danger mr-1"><%= unreadMessagesCount %></span>
+            </a>
+            <% } else { %>
+            <a
+              class="list-group-item list-group-item-action"
+              href="/admin/messages"
+              role="tab"
+            >
+              پیام های دریافتی
+            </a>
+            <% } %>
+            <% } %>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/settings"
+            role="tab"
+          >
+            تنظیمات
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-8 col-lg-10">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+              صفحه اصلی
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/about">درباره ما</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/contact">اطلاعات تماس</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/socials">شبکه های اجتماعی</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/bot">ربات تلگرام</a>
+            </li>
+          </ol>
+        </nav>
+        <div class="row">
+          <div class="col-12 mt-5">          
+            <div class="col-sm-6 m-auto">
+            <div class="card">
+              <div class="card-header bg-dark text-light">
+                تنظیمات اصلی
+              </div>
+              <div class="card-body">
+                <div class="">
+                  <label for="titleInput">عنوان سایت :</label>
+                  <input
+                    id="titleInput"
+                    class="form-control"
+                    type="text"
+                    value="<%= settings[0].title %>"
+                  />
+                </div>
+                <hr>
+                <div class="">
+                  <label for="input">عنوان قسمت بالایی :</label>
+                  <input
+                    id="topTitleInput"
+                    class="form-control"
+                    type="text"
+                    value="<%= settings[0].topSectionTitle %>"
+                  />
+                </div>
+                <hr>
+                <div class="">
+                  <label for="middleTitleInput">عنوان قسمت میانی :</label>
+                  <input
+                    id="middleTitleInput"
+                    class="form-control"
+                    type="text"
+                    value="<%= settings[0].middleSectionTitle %>"
+                  />
+                  <br>
+                  <label for="titleInput">متن قسمت میانی :</label>
+                  <input
+                    id="middleDescInput"
+                    class="form-control"
+                    type="text"
+                    value="<%= settings[0].middleSectionDesc %>"
+                  />
+                </div>
+                <hr>
+                <div class="mt-3">
+                  <label for="headerLogo">لوگو هدر : </label>
+                  <input
+                    id="headerLogo"
+                    class="form-control"
+                    type="file"
+                  />
+                  <small class="text-muted">اندازه لوگو باید 80*320 باشد.</small>
+                </div>
+                <hr>
+                <div class="mt-3">
+                  <label for="footerLogo">لوگو فوتر : </label>
+                  <input
+                    id="footerLogo"
+                    class="form-control"
+                    type="file"
+                  />
+                  <small class="text-muted">اندازه لوگو باید 80*320 باشد.</small>
+                </div>
+                <hr>
+                <div class="">
+                  <label for="titleInput">عنوان قسمت پایینی :</label>
+                  <input
+                    id="bottomTitleInput"
+                    class="form-control"
+                    type="text"
+                    value="<%= settings[0].bottomSectionTitle %>"
+                  />
+                  <br>
+                  <label for="titleInput">متن قسمت پایینی :</label>
+                  <input
+                    id="bottomDescInput"
+                    class="form-control"
+                    type="text"
+                    value="<%= settings[0].bottomSectionDesc %>"
+                  />
+                </div>
+                <hr>
+                <div class="mt-3">
+                  <label for="footerText">متن فوتر : </label>
+                  <textarea class="form-control" id="footerText" rows="8"><%= settings[0].footerText %></textarea>
+                </div>
+                <hr>
+                <div>                
+                  <h5 class="card-title">انتخاب دسته برای نمایش در قسمت میانی صفحه اصلی</h5>
+                  <p class="card-text">
+                    <div class="input-group">
+                      <div
+                        class="nice-select form-control wide select_option"
+                        tabindex="0"
+                      >
+                      <% if(statusSetting.length > 0) { %>
+                        <span class="current"><%= statusSetting[0].middleSectionMainPage.name %></span>
+                        <ul class="list settingsStatus">
+                          <% statuses.forEach(status => { %>
+                            <% if(JSON.stringify(statusSetting[0].middleSectionMainPage._id) !== status._id) { %>
+                              <li
+                              class="option"
+                              id="status-<%= status._id %>"
+                            >
+                             <%= status.name %>
+                            </li>
+                           <% } else { %>
+                            <li
+                            class="option"
+                          >
+                           <%= status.name %>
+                          </li>
+                         <% } %>
+  
+                       <% }); %>
+                        </ul>
+                     <% } else { %>
+                      <span class="current">انتخاب کنید ...</span>
+                      <ul class="list settingsStatus">
+                        <% statuses.forEach(status => { %>
+                          <li
+                          class="option"
+                          id="status-<%= status._id %>"
+                        >
+                         <%= status.name %>
+                        </li>
+                     <% }); %>
+                      </ul>
+                   <% } %>
+  
+                      </div>
+                    </div>
+                  </p></div>
+                <button class="btn btn-primary" id="mainSettingBTN">ثبت تغییرات</button>
+                
+              </div>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../../partials/scripts') %>
+
+    <script src="/javascripts/admin/settings/settings.js"></script>
+  </body>
+</html>

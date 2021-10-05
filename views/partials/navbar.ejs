@@ -1,0 +1,104 @@
+<div class="header-wrap wow fadeInUp">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 navbar navbar-expand-lg navbar-light">
+        <div class="header_logo">
+          <a href="/"><img alt="" src="<%= settings[0].headerLogo %>" width="320px" height="80px" /></a>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="col-lg-8">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <button class="close-toggler" type="button" data-toggle="offcanvas">
+              <span
+                ><i class="fas fa-times-circle" aria-hidden="true"></i
+              ></span>
+            </button>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">خانه</a>
+              </li>
+              <% if(isLoggedIn && (user.role !== 'user')) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/"
+                  >پنل مدیریت
+                  <span class="caret"><i class="fas fa-caret-down"></i></span
+                ></a>
+                <i class="fas fa-caret-down"></i>
+                <ul class="submenu">
+                  <li><a href="/admin/users/all">مدیریت کاربران</a></li>
+                  <li><a href="/admin/properties/status">مدیریت وضعیت املاک</a></li>
+                  <li><a href="/admin/properties/categories">مدیریت دسته بندی املاک</a></li>
+                  <li><a href="/admin/properties/facility">مدیریت امکانات املاک</a></li>
+                  <li><a href="/admin/properties">مدیریت املاک</a></li>
+                  <li><a href="/admin/properties/submit">ثبت ملک</a></li>
+                  <% if(user.role == 'super admin' || user.role == 'admin') { %>
+                    <% if(unreadMessagesCount) { %>
+                      <li><a href="/admin/messages">پیام های دریافتی <sup class="p-1 text-danger" style="font-size: 14px"><%= unreadMessagesCount %></sup></a></li>
+                    
+                   <% } else{ %>
+                    <li><a href="/admin/messages">پیام های دریافتی</a></li>
+                 <% } %>
+                 <% } %>
+                  <% if(user.role == 'super admin') { %>
+                    <li><a href="/admin/settings">تنظیمات</a></li>
+                 <% } %>
+                </ul>
+              </li>
+              <% } %> <% if(isLoggedIn) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/profile">پروفایل <span class="caret"><i class="fas fa-caret-down"></i></a>
+                <i class="fas fa-caret-down"></i>
+                <ul class="submenu">
+                  <li><a href="/users/profile">ویرایش حساب کاربری</a></li>
+                  <li><a href="/users/avatar">ویرایش عکس حساب کاربری</a></li>
+                  <li><a href="/users/reset/password/<%= user._id %>">تغییر کلمه عبور</a></li>
+                </ul>
+              </li>
+              <% } else if(!isLoggedIn) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/auth/register">ثبت نام</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/auth/login">ورود</a>
+              </li>
+              <% } %>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">درباره ما</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">تماس با ما</a>
+              </li>
+              <% if(isLoggedIn) { %>
+              <li class="nav-item">
+                <a class="nav-link text-danger" href="/auth/logout">خروج</a>
+              </li>
+              <% } %> <% if(isLoggedIn && user.avatar) { %>
+              <li class="nav-item">
+                
+                <img
+                  src="<%= user.avatar %>"
+                  alt=""
+                  class="image--cover"
+                />
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

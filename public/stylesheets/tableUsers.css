@@ -1,0 +1,11 @@
+.fa-user-cog:hover {
+  color: #007bff;
+}
+
+.fa-undo:hover {
+  color: rgb(11, 206, 11);
+}
+
+.fa-trash:hover {
+  color: red;
+}

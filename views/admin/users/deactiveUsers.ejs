@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
+    />
+
+    <link rel="stylesheet" href="/stylesheets/table.css" />
+
+    <!-- Bootstrap CSS -->
+    <%- include('../../partials/headers') %>
+    <style>
+      .fa-user-cog:hover {
+        color: #007bff;
+      }
+
+      .fa-undo:hover {
+        color: rgb(11, 206, 11);
+      }
+
+      .fa-trash:hover {
+        color: red;
+      }
+    </style>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>مدیریت کاربران</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <%- include('./menu') %>
+      <div class="container-lg col-sm-12 col-md-8 col-lg-10">
+        <div class="table-responsive">
+          <div class="table-wrapper">
+            <div class="table-title">
+              <div class="row">
+                <div class="col-sm-6">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white">
+                      <li class="breadcrumb-item">
+                        <a href="/admin/users/all">همه</a>
+                      </li>
+                      <li class="breadcrumb-item">
+                        <a href="/admin/users/active">کاربران فعال</a>
+                      </li>
+                      <li class="breadcrumb-item" aria-current="page">
+                        کاربران غیر فعال
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+                <div class="col-sm-6">
+                  <div class="search-box">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        id="search"
+                        class="form-control"
+                        placeholder="جستجو"
+                        style="border: 2px solid #0000006e"
+                      />
+                      <span class="input-group-addon"
+                        ><i class="fa fa-search mr-2"></i
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <table class="table table-striped text-center">
+              <thead class="bg-dark text-light">
+                <tr>
+                  <th>#</th>
+                  <th>نام</th>
+                  <th>نام خانوادگی</th>
+                  <th>نام کاربری</th>
+                  <th>آدرس ایمیل</th>
+                  <th>شماره موبایل</th>
+                  <th>نقش</th>
+                  <th style="width: 10%">عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for( let index = 0; index < users.length; index++ ) { %>
+                <tr>
+                  <td><%= index+1 %></td>
+                  <td><%= users[index].firstName %></td>
+                  <td><%= users[index].lastName %></td>
+                  <td><%= users[index].username %></td>
+                  <td><%= users[index].email %></td>
+                  <td><%= users[index].mobileNumber %></td>
+                  <% if(users[index].role == 'admin') { %>
+                  <td>مدیر</td>
+                  <% } else if(users[index].role == 'writer') { %>
+                  <td>نویسنده</td>
+                  <% } else { %>
+                  <td>کاربر</td>
+                  <% } %>
+                  <td>
+                    <a
+                      class="edit"
+                      title="فعال کردن کاربر"
+                      data-toggle="tooltip"
+                      ><i
+                        class="fas fa-user-plus text-primary activeUser"
+                        id="active-<%= users[index]._id %>"
+                      ></i
+                    ></a>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../../partials/scripts') %>
+
+    <script src="/javascripts/admin/users/activeUser.js"></script>
+    <script src="/javascripts/table.js"></script>
+  </body>
+</html>

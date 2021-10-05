@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
+    />
+
+    <link rel="stylesheet" href="/stylesheets/table.css" />
+    <link rel="stylesheet" href="/stylesheets/tableUsers.css" />
+    <!-- Bootstrap CSS -->
+    <%- include('../../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>پیام های دریافتی</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin"
+            role="tab"
+          >
+            پنل مدیریت
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/users/all"
+            role="tab"
+          >
+            مدیریت کاربران
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/status"
+            role="tab"
+          >
+            مدیریت وضعیت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/categories"
+            role="tab"
+          >
+            مدیریت دسته بندی املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/facility"
+            role="tab"
+          >
+            مدیریت امکانات املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties"
+            role="tab"
+          >
+            مدیریت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/submit"
+            role="tab"
+          >
+            ثبت ملک
+          </a>
+          <% if(user.role == 'super admin' || user.role == 'admin') { %> <%
+          if(unreadMessagesCount > 0) { %>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+            <span class="badge badge-danger mr-1"
+              ><%= unreadMessagesCount %></span
+            >
+          </a>
+          <% } else { %>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+          </a>
+          <% } %> <% } %> <% if(user.role == 'super admin') { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/settings"
+            role="tab"
+          >
+            تنظیمات
+          </a>
+          <% } %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+
+      <div class="container-lg col-sm-12 col-md-8 col-lg-10">
+        <div class="table-responsive">
+          <div class="table-wrapper">
+            <div class="table-title">
+              <div class="row">
+                <div class="col-4 col-md-6">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" style="background: white">
+                      <li class="breadcrumb-item">
+                        <a href="/admin/messages">همه پیام ها</a>
+                      </li>
+                      <li class="breadcrumb-item">
+                        <a href="/admin/messages/read">پیام های خوانده شده</a>
+                      </li>
+                      <li class="breadcrumb-item">پیام های جدید</li>
+                    </ol>
+                  </nav>
+                </div>
+                <div class="col-4 col-md-6 mb-4">
+                  <div class="search-box">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        id="search"
+                        class="form-control"
+                        placeholder="جستجو"
+                        style="border: 2px solid #0000006e"
+                      />
+                      <span class="input-group-addon"
+                        ><i class="fa fa-search mr-2"></i
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <table class="table table-striped text-center">
+              <thead class="bg-dark text-light">
+                <tr>
+                  <th>#</th>
+                  <th>نام</th>
+                  <th width="20%">ایمیل</th>
+                  <th>شماره تلفن</th>
+                  <th>موضوع</th>
+                  <th style="width: 20%">پیام</th>
+                  <th>تاریخ ارسال</th>
+                  <th style="width: 10%">عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let index = 0; index < unreadMessages.length; index++) {
+                %>
+                <tr>
+                  <td class="font-weight-bold"><%= index+1 %></td>
+                  <td
+                    class="text-truncate font-weight-bold"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="<%= unreadMessages[index].name %>"
+                  >
+                    <%= unreadMessages[index].name %>
+                  </td>
+                  <td
+                    class="text-truncate font-weight-bold"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="<%= unreadMessages[index].email %>"
+                  >
+                    <%= unreadMessages[index].email %>
+                  </td>
+                  <td class="font-weight-bold">
+                    <%= unreadMessages[index].tell %>
+                  </td>
+                  <td class="font-weight-bold">
+                    <%= unreadMessages[index].subject %>
+                  </td>
+                  <td
+                    class="text-truncate font-weight-bold"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="<%= unreadMessages[index].message %>"
+                  >
+                    <%= unreadMessages[index].message %>
+                  </td>
+                  <td class="font-weight-bold"><%= createdTime[index] %></td>
+                  <td>
+                    <a
+                      class="btn ml-2 btn-info"
+                      href="/admin/messages/<%= unreadMessages[index].messageID %>"
+                      ><i class="fas fa-eye text-light"></i></a
+                    ><a
+                      class="btn btn-danger deleteBTN"
+                      id="delete-<%= unreadMessages[index]._id %>"
+                    >
+                      <i
+                        class="fas fa-times text-light"
+                        id="deleteIcon-<%= unreadMessages[index]._id %>"
+                      ></i>
+                    </a>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../../partials/scripts') %>
+
+    <script src="/javascripts/admin/messages/tableSearch.js"></script>
+    <script src="/javascripts/admin/messages/deleteMessage.js"></script>
+  </body>
+</html>

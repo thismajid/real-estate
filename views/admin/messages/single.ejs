@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap CSS -->
+    <%- include('../../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>پیام های دریافتی</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin"
+            role="tab"
+          >
+            پنل مدیریت
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/users/all"
+            role="tab"
+          >
+            مدیریت کاربران
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/status"
+            role="tab"
+          >
+            مدیریت وضعیت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/categories"
+            role="tab"
+          >
+            مدیریت دسته بندی املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/facility"
+            role="tab"
+          >
+            مدیریت امکانات املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties"
+            role="tab"
+          >
+            مدیریت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/submit"
+            role="tab"
+          >
+            ثبت ملک
+          </a>
+          <% if(user.role == 'super admin' || user.role == 'admin') { %> <%
+          if(unreadMessagesCount) { %>
+
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+            <span class="badge badge-danger mr-1"
+              ><%= unreadMessagesCount %></span
+            >
+          </a>
+          <% } else { %>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+          </a>
+          <% } %> <% } %> <% if(user.role == 'super admin') { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/settings"
+            role="tab"
+          >
+            تنظیمات
+          </a>
+          <% } %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+
+      <div class="container-lg col-sm-12 col-md-8 col-lg-10">
+        <div class="col-8 m-auto">
+          <form class="form mb-md50" id="contact-form">
+            <div class="messages"></div>
+            <div class="controls">
+              <div class="row">
+                <div class="col-lg-6">
+                  <input
+                    class="d-none"
+                    type="text"
+                    value="<%= message._id %>"
+                    id="messageID"
+                  />
+                  <input
+                    class="d-none"
+                    type="text"
+                    value="<%= user._id %>"
+                    id="userID"
+                  />
+                  <div class="form-group has-error has-danger">
+                    <input
+                      class="form-control"
+                      type="text"
+                      value="<%= message.name %>"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input
+                      class="form-control"
+                      type="email"
+                      value="<%= message.email %>"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input
+                      class="form-control"
+                      type="tell"
+                      value="<%= message.tell %>"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input
+                      class="form-control"
+                      type="text"
+                      value="<%= message.subject %>"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <textarea class="form-control" rows="6" readonly>
+<%= message.message %></textarea
+                    >
+                  </div>
+                </div>
+                <div class="col-lg-12" id="replyTextarea"></div>
+                <div class="col-lg-12 contact-wrap">
+                  <div class="contact-btn">
+                    <button type="submit" class="sub" id="reply">
+                      ارسال پاسخ<i
+                        class="fa fa-arrow-circle-left"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../../partials/scripts') %>
+
+    <script src="/javascripts/admin/messages/reply.js"></script>
+  </body>
+</html>

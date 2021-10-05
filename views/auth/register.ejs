@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <%- include('../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../partials/top-navbar') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>ثبت نام</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <!--Inner Content Start-->
+    <div class="innercontent">
+      <div class="container">
+        <div class="card mx-auto loginWrp wow fadeInUp">
+          <div class="card-body">
+            <h4 class="card-title mb-4">ثبت نام</h4>
+            <form>
+              <% if (errors) { %>
+              <p><%= errors %></p>
+              <% } %>
+              <div id="alertDIV"></div>
+              <a
+                href="/auth/google"
+                class="btn btn-primary btn-block google_plus mb-4"
+              >
+                <i class="fab fa-google-plus-g"></i
+                ><span class="mr-2">ورود با حساب گوگل</span></a
+              >
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="نام"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="نام خانوادگی"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  required
+                />
+              </div>
+              <!-- form-group// -->
+
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="نام کاربری"
+                  type="text"
+                  name="username"
+                  id="username"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="آدرس ایمیل"
+                  type="text"
+                  name="email"
+                  id="email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="شماره موبایل"
+                  type="text"
+                  name="mobileNumber"
+                  id="mobileNumber"
+                  required
+                />
+              </div>
+              <!-- form-group// -->
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="کلمه عبور"
+                  type="password"
+                  name="password"
+                  id="password"
+                  required
+                />
+              </div>
+              <!-- form-group// -->
+
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="تکرار کلمه عبور"
+                  type="password"
+                  id="confirmPassword"
+                  required
+                />
+              </div>
+
+              <!-- form-group// -->
+            </form>
+            <div class="form-group">
+              <button
+                class="btn login_btn btn-primary btn-block"
+                id="registerBTN"
+              >
+                ثبت نام
+              </button>
+            </div>
+          </div>
+          <!-- card-body.// -->
+        </div>
+        <p class="text-center mt-4">
+          قبلاً ثبت نام کردید؟ <a href="/auth/login">اکنون وارد شوید</a>
+        </p>
+      </div>
+    </div>
+
+    <!--Inner Content End-->
+
+    <!--Footer Start-->
+    <footer class="footer bg-style wow fadeInUp">
+      <div class="container">
+        <div class="footer-upper">
+          <div class="row">
+            <div class="col-lg-3 col-md-12">
+              <div class="footer-widget about-widget">
+                <a href="#">
+                  <img src="/images/logo2.png" alt="Awesome Image" />
+                </a>
+                <p>
+                  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                  با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و
+                  مجله در ستون و سطرآنچنان که لازم است.
+                </p>
+                <div class="readmore"><a href="#">بیشتر </a></div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-3">
+              <div class="footer-widget quick-links">
+                <h3 class="title">لینک های سریع</h3>
+                <ul>
+                  <li><a href="#."> خانه</a></li>
+                  <li><a href="#."> خصوصیات</a></li>
+                  <li><a href="#."> مشاوران</a></li>
+                  <li><a href="#."> وبلاگ</a></li>
+                  <li><a href="#."> تماس با ما</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-5">
+              <div class="footer-widget contact">
+                <h3 class="title">ویژگی های اخیر</h3>
+                <ul class="property_sec">
+                  <li>
+                    <div class="rec_proprty">
+                      <div class="propertyImg">
+                        <img src="/images/property_small01.jpg" />
+                      </div>
+                      <div class="property_info">
+                        <h4><a href="#">ایران , تهران , زعفرانیه</a></h4>
+                        <p>خیابان هستی , ساختمان مهر</p>
+                        <div class="priceWrp">98000 تومان</div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="rec_proprty">
+                      <div class="propertyImg">
+                        <img src="/images/property_small02.jpg" />
+                      </div>
+                      <div class="property_info">
+                        <h4><a href="#">ایران , تهران , زعفرانیه</a></h4>
+                        <p>خیابان هستی , ساختمان مهر</p>
+                        <div class="priceWrp">98000 تومان</div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4">
+              <div class="footer-widget contact">
+                <h3 class="title">اطلاعات تماس</h3>
+                <ul class="footer-adress">
+                  <li class="footer_address">
+                    <i class="fas fa-map-signs"></i>
+                    <span>تهران , زعفرانیه , خیابان هستی</span>
+                  </li>
+                  <li class="footer_email">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    <span
+                      ><a href="mailto:info@realestate.com">
+                        info@realestate.com
+                      </a></span
+                    >
+                  </li>
+                  <li class="footer_phone">
+                    <i class="fas fa-phone-alt"></i>
+                    <span><a href="tel:021-12345678"> 021-12345678</a></span>
+                  </li>
+                </ul>
+                <div class="social-icons footer_icon">
+                  <ul>
+                    <li>
+                      <a href="#"
+                        ><i class="fab fa-facebook-f" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#"
+                        ><i class="fab fa-twitter" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#"
+                        ><i class="fab fa-instagram" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a href="#"
+                        ><i class="fab fa-youtube" aria-hidden="true"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--Footer End-->
+
+    <%- include("../partials/scripts") %>
+    <script src="/javascripts/auth/register.js"></script>
+  </body>
+</html>

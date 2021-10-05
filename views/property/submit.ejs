@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <%- include('../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>ارسال ملک</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="container-lg col-sm-12 col-md-8 m-auto">
+        <div class="innercontent property_submit">
+          <div class="container">
+            <h3 class="desc_head">اطلاعات ثبت ملک</h3>
+            <div class="formcol">
+              <form class="form mb-md50" id="contact-form">
+                <div class="messages"></div>
+                <div class="controls">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="title"
+                          class="form-control"
+                          type="text"
+                          name="name"
+                          placeholder="عنوان ملک"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <div
+                          class="nice-select wide select_option"
+                          tabindex="0"
+                        >
+                          <span class="current">وضعیت ملک</span>
+                          <ul class="list propertyStatus" id="propertyStatus">
+                            <li
+                              data-value="Property Status"
+                              data-display="Property Status"
+                              class="option selected focus"
+                            >
+                              وضعیت ملک
+                            </li>
+                            <% propertyStatus.forEach(status => { %>
+                            <li
+                              data-value="<%= status.name %>"
+                              class="option"
+                              id="status-<%= status._id %>"
+                            >
+                              <a><%= status.name %></a>
+                            </li>
+                            <% }) %>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <textarea
+                          class="form-control"
+                          id="description"
+                          placeholder="توضیحات ملک"
+                          rows="3"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <div
+                          class="nice-select wide select_option"
+                          tabindex="0"
+                        >
+                          <span class="current">نوع ملک</span>
+                          <ul class="list propertyType" id="propertyType">
+                            <li
+                              data-value="Property Type"
+                              data-display="Property Type"
+                              class="option selected focus"
+                            >
+                              نوع ملک
+                            </li>
+                            <% propertyCategories.forEach(category => { %>
+                            <li
+                              data-value="<%= category.name %>"
+                              class="option"
+                              id="category-<%= category._id %>"
+                            >
+                              <a><%= category.name %></a>
+                            </li>
+                            <% }) %>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="constructionYear"
+                          class="form-control"
+                          type="text"
+                          placeholder="سال ساخت"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="input-group mb-2 mr-sm-2 col-lg-12">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="قیمت"
+                          id="price"
+                        />
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">تومان</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="area"
+                          class="form-control"
+                          type="number"
+                          value="0"
+                          min="0"
+                        />
+                        <small class="form-text text-muted">متراژ ملک</small>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="bedroom"
+                          class="form-control"
+                          type="number"
+                          name=""
+                          placeholder="تعداد اتاق خواب"
+                          value="0"
+                          min="0"
+                        />
+                        <small class="form-text text-muted"
+                          >تعداد اتاق خواب</small
+                        >
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="bathroom"
+                          class="form-control"
+                          type="number"
+                          value="0"
+                          min="0"
+                        />
+                        <small class="form-text text-muted"
+                          >تعداد سرویس بهداشتی</small
+                        >
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="parking"
+                          class="form-control"
+                          type="number"
+                          value="0"
+                          min="0"
+                        />
+                        <small class="form-text text-muted"
+                          >تعداد پارکینگ
+                        </small>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="city"
+                          class="form-control"
+                          type="text"
+                          placeholder="شهر"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="region"
+                          class="form-control"
+                          type="text"
+                          placeholder="منطقه"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group has-error has-danger">
+                        <input
+                          id="address"
+                          class="form-control"
+                          type="text"
+                          placeholder="آدرس"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <% for (let index = 0; index < propertyFacilities.length;
+                      index++) { %>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="facility-<%= propertyFacilities[index]._id %>"
+                          value="<%= propertyFacilities[index].name %>"
+                        />
+                        <label
+                          class="form-check-label mr-2"
+                          for="inlineCheckbox1"
+                          ><%= propertyFacilities[index].name %></label
+                        >
+                      </div>
+                      <% } %>
+                    </div>
+                    <div class="row mt-5">
+                      <div class="col-lg-6">
+                        <div class="form-group custom-file">
+                          <input
+                            type="file"
+                            class="custom-file-input"
+                            id="mainPicture"
+                          />
+                          <label
+                            class="custom-file-label"
+                            for="customFile"
+                            style="padding: 0.375rem 5.75rem !important"
+                            >انتخاب عکس</label
+                          >
+                          <small class="text-muted">عکس اصلی ملک</small>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group custom-file">
+                          <input
+                            type="file"
+                            class="custom-file-input"
+                            id="otherPictures"
+                            multiple
+                          />
+                          <label
+                            class="custom-file-label"
+                            for="customFile"
+                            style="padding: 0.375rem 5.75rem !important"
+                            >انتخاب عکس</label
+                          >
+                          <small class="text-muted"
+                            >عکس های دیگر ملک برای نمایش در گالری</small
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="sub btn btn-success mt-5" id="submitProperty">
+                    ثبت ملک
+                  </button>
+                  <button
+                    class="sub btn btn-outline-success mt-5 mr-3"
+                    onclick="location.reload()"
+                  >
+                    پاک کردن
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../partials/footer') %>
+    <!--Footer End-->
+    <%- include('../partials/scripts') %>
+    <script>
+      $(".custom-file-input").on("change", function () {
+        var files = Array.from(this.files);
+        var fileName = files
+          .map((f) => {
+            return f.name;
+          })
+          .join(", ");
+        $(this)
+          .siblings(".custom-file-label")
+          .addClass("selected")
+          .html(fileName);
+      });
+    </script>
+    <script src="/javascripts/property/submit.js"></script>
+  </body>
+</html>

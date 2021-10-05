@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="stylesheet" href="/stylesheets/leaflet.css" />
+    <script src="/javascripts/leaflet.js"></script>
+    <%- include('./partials/headers') %>
+    <style>
+      #map {
+        height: 100%;
+      }
+    </style>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('partials/top-navbar') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>درباره ما</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <!--Inner Content Start-->
+    <input class="d-none" type="text" id="lat" value="<%= settings[0].lat %>" />
+    <input class="d-none" type="text" id="lng" value="<%= settings[0].lng %>" />
+    <div class="innercontent">
+      <div class="container">
+        <div class="row aboutWrap">
+          <div class="col-lg-6">
+            <div class="about_box">
+              <div class="title">
+                <h3>درباره <%= settings[0].title %></h3>
+              </div>
+              <p><%= settings[0].introduction %></p>
+              <ul class="tick">
+                <% for (let index = 0; index < settings[0].attributes.length;
+                index++) { %>
+                <li><%= settings[0].attributes[index] %></li>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="map" id="map"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('./partials/footer') %> <%- include("./partials/scripts") %>
+    <!--Footer End-->
+
+    <script src="/javascripts/index/contact-map.js"></script>
+  </body>
+</html>

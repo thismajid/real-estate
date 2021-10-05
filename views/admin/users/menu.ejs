@@ -1,0 +1,83 @@
+<div class="col-sm-12 col-md-4 col-lg-2">
+  <div class="list-group" id="list-tab" role="tablist">
+    <a class="list-group-item list-group-item-action" href="/admin" role="tab">
+      پنل مدیریت
+    </a>
+    <a
+      class="list-group-item list-group-item-action active"
+      href="/admin/users/all"
+      role="tab"
+    >
+      مدیریت کاربران
+    </a>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/admin/properties/status"
+      role="tab"
+    >
+      مدیریت وضعیت املاک
+    </a>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/admin/properties/categories"
+      role="tab"
+    >
+      مدیریت دسته بندی املاک
+    </a>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/admin/properties/facility"
+      role="tab"
+    >
+      مدیریت امکانات املاک
+    </a>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/admin/properties"
+      role="tab"
+    >
+      مدیریت املاک
+    </a>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/admin/properties/submit"
+      role="tab"
+    >
+      ثبت ملک
+    </a>
+    <% if(user.role == 'super admin' || user.role == 'admin') { %> <%
+    if(unreadMessagesCount > 0) { %>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/admin/messages"
+      role="tab"
+    >
+      پیام های دریافتی
+      <span class="badge badge-danger mr-1"><%= unreadMessagesCount %></span>
+    </a>
+    <% } else { %>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/admin/messages"
+      role="tab"
+    >
+      پیام های دریافتی
+    </a>
+    <% } %> <% } %> <% if(user.role == 'super admin') { %>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/admin/settings"
+      role="tab"
+    >
+      تنظیمات
+    </a>
+    <% } %>
+    <a
+      class="list-group-item list-group-item-action"
+      href="/auth/logout"
+      role="tab"
+    >
+      خروج
+    </a>
+  </div>
+</div>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <%- include('partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('partials/top-navbar') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('partials/navbar') %>
+    <!--Header End-->
+
+    <!--slider start-->
+    <div class="slider-wrap wow fadeInUp">
+      <div class="container">
+        <div class="sliderTxt">
+          <h1><%= settings[0].topSectionTitle %></h1>
+          <div id="exTab1" class="container">
+            <ul class="nav nav-pills">
+              <li>
+                <a href="#1a" class="active" data-toggle="tab">جستجوی ملک</a>
+              </li>
+            </ul>
+            <div class="tab-content clearfix">
+              <div class="tab-pane active" id="1a">
+                <div class="form-wrap">
+                  <form>
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <div class="input-group origin">
+                          <input
+                            type="text"
+                            placeholder="عنوان ملک را وارد کنید ..."
+                            class="form-control"
+                            id="search-title"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="input-group destination">
+                          <input
+                            type="text"
+                            placeholder="شهر"
+                            class="form-control"
+                            id="search-city"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-lg-3">
+                        <div class="input-group">
+                          <div
+                            class="nice-select form-control wide select_option"
+                            tabindex="0"
+                          >
+                            <span class="current">نوع ملک</span>
+                            <ul class="list propertyCategories">
+                              <% propertyCategories.forEach(category => { %>
+                              <li
+                                data-value="1"
+                                class="option"
+                                id="searchCategories-<%= category.shortName %>"
+                              >
+                                <%= category.name %>
+                              </li>
+                              <% }); %>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 end_date">
+                        <div class="input-group">
+                          <div
+                            class="nice-select form-control wide select_option"
+                            tabindex="0"
+                          >
+                            <span class="current">وضعیت ملک</span>
+                            <ul class="list propertyStatus">
+                              <% propertyStatus.forEach(status => { %>
+                              <li
+                                data-value="1"
+                                class="option"
+                                id="searchStatus-<%= status.shortName %>"
+                              >
+                                <%= status.name %>
+                              </li>
+                              <% }); %>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 end_date">
+                        <div class="input-group">
+                          <div
+                            class="nice-select form-control wide select_option"
+                            tabindex="0"
+                          >
+                            <span class="current">اتاق خواب</span>
+                            <ul class="list propertyBedroom">
+                              <li
+                                data-value="Bedrooms"
+                                data-display="Bedrooms"
+                                class="option selected focus"
+                              >
+                                اتاق خواب
+                              </li>
+                              <li data-value="1" class="option">1</li>
+                              <li data-value="2" class="option">2</li>
+                              <li data-value="3" class="option">3</li>
+                              <li data-value="4" class="option">4</li>
+                              <li data-value="5" class="option">5</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-2">
+                        <div class="input-group destination">
+                          <input
+                            type="text"
+                            placeholder="قیمت از ... (تومان)"
+                            class="form-control"
+                            id="search-lowPrice"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <div class="input-group destination">
+                          <input
+                            type="text"
+                            placeholder="قیمت تا ... (تومان)"
+                            class="form-control"
+                            id="search-highPrice"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <div class="input-btn">
+                          <button class="sbutn" id="searchBTN">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            جستجو
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--slider end-->
+
+    <!--Properties Start-->
+    <div class="property-wrap wow fadeInUp">
+      <div class="container">
+        <div class="title">
+          <h1>آخرین املاک</h1>
+        </div>
+
+        <!--Row Start-->
+        <% if(user) { %>
+        <input
+          class="d-none"
+          type="text"
+          value="<%= user._id %>"
+          id="userIDIndex"
+        />
+        <% } %>
+
+        <ul class="row">
+          <% for (let index = 0; index < properties.length; index++) { %>
+
+          <!--col-lg-4 Start-->
+          <li class="col-lg-4">
+            <div class="property_box wow fadeInUp">
+              <div class="propertyImg">
+                <a href="/property/<%= properties[index].propertyID %>"
+                  ><img
+                    alt=""
+                    src="<%= properties[index].mainPicture %>"
+                    style="width: 400px; height: 200px"
+                /></a>
+              </div>
+              <h3>
+                <a href="/property/<%= properties[index].propertyID %>"
+                  ><%= properties[index].title %></a
+                >
+              </h3>
+              <div class="property_location">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i> <%=
+                properties[index].city %> / <%= properties[index].region %>
+              </div>
+              <div class="heart_info">
+                <% if(user) { %> <%
+                if(properties[index].likes.includes(user._id)) { %>
+                <div class="heart_icon">
+                  <a>
+                    <i
+                      class="fas fa-heart removeLike"
+                      style="color: red"
+                      id="unlike-<%= properties[index]._id %>"
+                    ></i
+                  ></a>
+                </div>
+                <% } else { %>
+                <div class="heart_icon">
+                  <a>
+                    <i
+                      class="far fa-heart submitLike"
+                      id="like-<%= properties[index]._id %>"
+                    ></i
+                  ></a>
+                </div>
+                <% } %> <% } %>
+                <div class="property_price">
+                  <%= properties[index].price %> تومان
+                </div>
+              </div>
+              <div class="propert_info">
+                <ul class="row">
+                  <li class="col-4">
+                    <div class="proprty_icon">
+                      <i class="fas fa-bed"></i>
+                    </div>
+                    <h5>اتاق خواب <%= properties[index].bedroom %></h5>
+                  </li>
+                  <li class="col-4">
+                    <div class="proprty_icon">
+                      <i class="fas fa-ruler-horizontal"></i>
+                    </div>
+                    <h5>متراژ <%= properties[index].area %> متر</h5>
+                  </li>
+                  <li class="col-4">
+                    <div class="proprty_icon">
+                      <i class="fas fa-warehouse"></i>
+                    </div>
+                    <h5>پارکینگ <%= properties[index].parking %></h5>
+                  </li>
+                </ul>
+              </div>
+              <div class="rent_info">
+                <div class="apart"><%= properties[index].category.name %></div>
+                <div class="sale"><%= properties[index].status.name %></div>
+              </div>
+            </div>
+          </li>
+
+          <% } %>
+        </ul>
+        <!--Row End-->
+      </div>
+    </div>
+    <!--Properties End-->
+
+    <!--Buy and Sell Start-->
+    <div class="buy-wrap wow fadeInUp">
+      <div class="container">
+        <div class="title">
+          <h1><%= settings[0].middleSectionTitle %></h1>
+        </div>
+        <p><%= settings[0].middleSectionDesc %></p>
+        <div class="start_btn">
+          <span><a href="#">جستجو را شروع کنید</a></span>
+        </div>
+      </div>
+    </div>
+    <!--Buy and Sell Start-->
+
+    <!--Properties status Start-->
+    <% if(settings[0].middleSectionMainPage && middleSectionProperties.length >
+    0) { %>
+    <div class="property-wrap property_rent wow fadeInUp">
+      <div class="container">
+        <div class="title">
+          <h1 class="mb-5">
+            اخرین املاک برای <%= settings[0].middleSectionMainPage.name %>
+          </h1>
+        </div>
+        <!--Row Start-->
+        <ul class="row">
+          <% middleSectionProperties.forEach(property => { %>
+          <li class="col-lg-4">
+            <div class="property_box wow fadeInUp">
+              <div class="propertyImg">
+                <a href="/property/<%= property.propertyID %>"
+                  ><img
+                    alt=""
+                    src="<%= property.mainPicture %>"
+                    style="width: 400px; height: 200px"
+                /></a>
+              </div>
+              <h3>
+                <a href="/property/<%= property.propertyID %>"
+                  ><%= property.title %></a
+                >
+              </h3>
+              <div class="property_location">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i> <%=
+                property.city %> / <%= property.region %>
+              </div>
+              <div class="heart_info">
+                <% if(user) { %> <% if(property.likes.includes(user._id)) { %>
+                <div class="heart_icon">
+                  <a>
+                    <i
+                      class="fas fa-heart removeLike"
+                      style="color: red"
+                      id="unlike-<%= property._id %>"
+                    ></i
+                  ></a>
+                </div>
+                <% } else { %>
+                <div class="heart_icon">
+                  <a>
+                    <i
+                      class="far fa-heart submitLike"
+                      id="like-<%= property._id %>"
+                    ></i
+                  ></a>
+                </div>
+                <% } %> <% } %>
+
+                <div class="property_price"><%= property.price %> تومان</div>
+              </div>
+              <div class="propert_info">
+                <ul class="row">
+                  <li class="col-4">
+                    <div class="proprty_icon">
+                      <i class="fas fa-bed"></i>
+                    </div>
+                    <h5>اتاق خواب <%= property.bedroom %></h5>
+                  </li>
+                  <li class="col-4">
+                    <div class="proprty_icon">
+                      <i class="fas fa-ruler-horizontal"></i>
+                    </div>
+                    <h5>متراژ <%= property.area %></h5>
+                  </li>
+                  <li class="col-4">
+                    <div class="proprty_icon">
+                      <i class="fas fa-warehouse"></i>
+                    </div>
+                    <h5>پارکینگ <%= property.parking %></h5>
+                  </li>
+                </ul>
+              </div>
+              <div class="rent_info">
+                <div class="apart"><%= property.category.name %></div>
+                <div class="sale">برای <%= property.status.name %></div>
+              </div>
+            </div>
+          </li>
+          <% }); %>
+        </ul>
+        <!--Row End-->
+      </div>
+    </div>
+    <% } %>
+
+    <!-- perfect home start -->
+    <section class="perfect_home_wrap wow fadeInUp">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <div class="perfect_text">
+              <h1><%= settings[0].bottomSectionTitle %></h1>
+              <span><%= settings[0].bottomSectionDesc %></span>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="readmore"><a href="#">جستجو کنید</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- perfect home end -->
+
+    <!--Footer Start-->
+    <%- include('partials/footer') %>
+    <!--Footer End-->
+
+    <%- include("partials/scripts") %>
+    <script src="/javascripts/index/search.js"></script>
+    <script src="/javascripts/index/like.js"></script>
+  </body>
+</html>

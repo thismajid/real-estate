@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="/stylesheets/leaflet.css" />
+    <script src="/javascripts/leaflet.js"></script>
+    <%- include('./partials/headers') %>
+    <style>
+      #map {
+        height: 80%;
+      }
+    </style>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('./partials/top-navbar') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('./partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>تماس با ما</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <!--Inner Content Start-->
+    <input class="d-none" type="text" id="lat" value="<%= settings[0].lat %>" />
+    <input class="d-none" type="text" id="lng" value="<%= settings[0].lng %>" />
+    <div class="innercontent wow fadeInUp">
+      <div class="container">
+        <div class="getTouch">با ما تماس بگیرید</div>
+        <div class="row formcol">
+          <div class="col-lg-8">
+            <form class="form mb-md50" id="contact-form">
+              <div class="messages"></div>
+              <div class="controls">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group has-error has-danger">
+                      <% if(user) { %>
+                      <input
+                        id="form_name"
+                        class="form-control"
+                        type="text"
+                        name="name"
+                        value="<%= user.firstName %> <%= user.lastName %>"
+                        required
+                      />
+                      <% } else { %>
+                      <input
+                        id="form_name"
+                        class="form-control"
+                        type="text"
+                        name="name"
+                        placeholder="نام"
+                        required
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <% if(user) { %>
+                      <input
+                        id="form_email"
+                        class="form-control"
+                        type="email"
+                        name="email"
+                        value="<%= user.email %>"
+                        required
+                      />
+
+                      <% } else { %>
+                      <input
+                        id="form_email"
+                        class="form-control"
+                        type="email"
+                        name="email"
+                        placeholder="ایمیل"
+                        required
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <% if(user) { %>
+                      <input
+                        id="form_tell"
+                        class="form-control"
+                        type="text"
+                        name="phone"
+                        value="<%= user.mobileNumber %>"
+                        required
+                      />
+                      <% } else { %>
+                      <input
+                        id="form_tell"
+                        class="form-control"
+                        type="text"
+                        name="phone"
+                        placeholder="تلفن"
+                        required
+                      />
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <input
+                        id="form_subject"
+                        class="form-control"
+                        type="text"
+                        name="subject"
+                        placeholder="موضوع"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <textarea
+                        id="form_message"
+                        class="form-control"
+                        name="message"
+                        placeholder="پیام"
+                        rows="4"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 contact-wrap">
+                    <div class="contact-btn">
+                      <button type="submit" class="sub" id="sendMessage">
+                        ارسال پیام<i
+                          class="fa fa-arrow-circle-left"
+                          aria-hidden="true"
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-lg-4">
+            <div class="map" id="map"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Inner Content End-->
+
+    <!--Footer Start-->
+    <%- include('./partials/footer') %> <%- include("./partials/scripts") %>
+    <!--Footer End-->
+
+    <script src="/javascripts/index/contact-map.js"></script>
+    <script src="/javascripts/index/sendMessage.js"></script>
+  </body>
+</html>

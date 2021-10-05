@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <%- include('../../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>ویرایش ملک: <%= property.title %></h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin"
+            role="tab"
+          >
+            پنل مدیریت
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/users/all"
+            role="tab"
+          >
+            مدیریت کاربران
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/status"
+            role="tab"
+          >
+            مدیریت وضعیت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/categories"
+            role="tab"
+          >
+            مدیریت دسته بندی املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/facility"
+            role="tab"
+          >
+            مدیریت امکانات املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/properties"
+            role="tab"
+          >
+            مدیریت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/submit"
+            role="tab"
+          >
+            ثبت ملک
+          </a>
+          <% if(user.role == 'super admin' || user.role == 'admin') { %> <%
+          if(unreadMessagesCount > 0) { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+            <span class="badge badge-danger mr-1"><%= unreadMessagesCount %></span>
+          </a>
+          <% } else { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+          </a>
+          <% } %> <% } %> <% if(user.role == 'super admin') { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/settings"
+            role="tab"
+          >
+            تنظیمات
+          </a>
+          <% } %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+      <div class="container-lg col-sm-10 col-md-8 m-auto">
+        <div class="innercontent property_submit">
+          <div class="container">
+            <h3 class="desc_head">ویرایش ملک: <%= property.title %></h3>
+            <div class="formcol">
+              <form class="form mb-md50" id="contact-form">
+                <div class="messages"></div>
+                <div class="controls">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <input
+                        type="text"
+                        class="d-none"
+                        id="propertyID"
+                        value="<%= property._id %>"
+                      />
+                      <div class="form-group has-error has-danger">
+                        <small>عنوان ملک</small>
+                        <input
+                          id="title"
+                          class="form-control"
+                          type="text"
+                          value="<%= property.title %>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="">
+                        <small>نوع قرارداد</small>
+                        <select class="w-100" id="propertyStatus">
+                          <% propertyStatus.forEach(status => { %> <%
+                          if(status.propertyID.includes(property._id)) { %>
+                          <option value="<%= status._id %>" selected>
+                            <%= status.name %>
+                          </option>
+                          <% } else { %>
+                          <option value="<%= status._id %>">
+                            <%= status.name %>
+                          </option>
+                          <% } %> <% }); %>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <small>توضیحات ملک</small>
+                        <textarea
+                          class="form-control"
+                          id="description"
+                          rows="3"
+                        >
+<%= property.description %></textarea
+                        >
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <div class="">
+                          <small>نوع ملک</small>
+                          <select class="w-100" id="propertyType">
+                            <% propertyCategories.forEach(category => { %> <%
+                            if(category.propertyID.includes(property._id)) { %>
+                            <option value="<%= category._id %>" selected>
+                              <%= category.name %>
+                            </option>
+                            <% } else { %>
+                            <option value="<%= category._id %>">
+                              <%= category.name %>
+                            </option>
+                            <% } %> <% }); %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <small>سال ساخت</small>
+                        <input
+                          id="constructionYear"
+                          class="form-control"
+                          type="text"
+                          value="<%= property.constructionYear %>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <small class="mr-3">قیمت ملک</small>
+                      <div class="input-group mb-2 col-lg-12">
+                        <input
+                          type="text"
+                          class="form-control"
+                          value="<%= property.price %>"
+                          id="price"
+                        />
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">تومان</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <small class="form-text text-muted">متراژ ملک</small>
+                        <input
+                          id="area"
+                          class="form-control"
+                          type="number"
+                          value="<%= property.area %>"
+                          min="0"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <small class="form-text text-muted"
+                          >تعداد اتاق خواب</small
+                        >
+                        <input
+                          id="bedroom"
+                          class="form-control"
+                          type="number"
+                          value="<%= property.bedroom %>"
+                          min="0"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <small class="form-text text-muted"
+                          >تعداد سرویس بهداشتی</small
+                        >
+                        <input
+                          id="bathroom"
+                          class="form-control"
+                          type="number"
+                          value="<%= property.bathroom %>"
+                          min="0"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <small class="form-text text-muted"
+                          >تعداد پارکینگ
+                        </small>
+                        <input
+                          id="parking"
+                          class="form-control"
+                          type="number"
+                          value="<%= property.parking %>"
+                          min="0"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <small>شهر</small>
+                        <input
+                          id="city"
+                          class="form-control"
+                          type="text"
+                          value="<%= property.city %>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group has-error has-danger">
+                        <small>منطقه</small>
+                        <input
+                          id="region"
+                          class="form-control"
+                          type="text"
+                          value="<%= property.region %>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group has-error has-danger">
+                        <small>آدرس</small>
+                        <input
+                          id="address"
+                          class="form-control"
+                          type="text"
+                          value="<%= property.address %>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <% propertyFacilities.forEach(facility => { %> <%
+                      if(facility.propertyID.includes(property._id)) { %>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          checked
+                          id="facility-<%= facility._id %>"
+                        />
+                        <label
+                          class="form-check-label mr-2"
+                          for="inlineCheckbox1"
+                          ><%= facility.name %></label
+                        >
+                      </div>
+                      <% } else { %>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="facility-<%= facility._id %>"
+                        />
+                        <label
+                          class="form-check-label mr-2"
+                          for="inlineCheckbox1"
+                          ><%= facility.name %></label
+                        >
+                      </div>
+                      <% } %> <% }); %>
+                    </div>
+
+                    <div class="gallery mt-5">
+                      <a target="_blank" href="<%= property.mainPicture %>">
+                        <img
+                          src="<%= property.mainPicture %>"
+                          width="600"
+                          height="400"
+                          class="mainPicture"
+                          id="<%= property.mainPicture %>"
+                        />
+                      </a>
+                      <div class="desc">عکس اصلی ملک</div>
+                    </div>
+
+                    <% for (let index = 0; index <
+                    property.otherPictures.length; index++) { %>
+                    <div
+                      class="gallery mt-5"
+                      id="gallery-<%= property.otherPictures[index] %>"
+                    >
+                      <a
+                        target="_blank"
+                        href="<%= property.otherPictures[index] %>"
+                      >
+                        <img
+                          src="<%= property.otherPictures[index] %>"
+                          width="600"
+                          height="400"
+                        />
+                      </a>
+                      <div class="desc">
+                        <p class="d-inline ml-5 text-muted">عکس گالری</p>
+                        <p class="d-inline mr-5">
+                          <i
+                            class="far fa-trash-alt text-danger galleryPics"
+                            id="<%= property.otherPictures[index] %>"
+                          ></i>
+                        </p>
+                      </div>
+                    </div>
+
+                    <% } %>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col-lg-6">
+                      <div class="form-group custom-file">
+                        <input
+                          type="file"
+                          class="custom-file-input"
+                          id="mainPictureNew"
+                        />
+                        <label
+                          class="custom-file-label"
+                          for="customFile"
+                          style="padding: 0.375rem 5.75rem !important"
+                          >انتخاب عکس</label
+                        >
+                        <small class="text-muted">عکس اصلی ملک</small>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group custom-file">
+                        <input
+                          type="file"
+                          class="custom-file-input"
+                          id="otherPictures"
+                          multiple
+                        />
+                        <label
+                          class="custom-file-label"
+                          for="customFile"
+                          style="padding: 0.375rem 5.75rem !important"
+                          >انتخاب عکس</label
+                        >
+                        <small class="text-muted"
+                          >عکس های دیگر ملک برای نمایش در گالری</small
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <button class="sub btn btn-success mt-5" id="editProperty">
+                    ویرایش ملک
+                  </button>
+                  <button
+                    class="sub btn btn-outline-success mt-5 mr-3"
+                    onclick="location.reload()"
+                  >
+                    انصراف
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../../partials/footer') %>
+    <!--Footer End-->
+    <%- include('../../partials/scripts') %>
+    <script>
+      $(".custom-file-input").on("change", function () {
+        var files = Array.from(this.files);
+        var fileName = files
+          .map((f) => {
+            return f.name;
+          })
+          .join(", ");
+        $(this)
+          .siblings(".custom-file-label")
+          .addClass("selected")
+          .html(fileName);
+      });
+    </script>
+    <script src="/javascripts/admin/property/editProperty.js"></script>
+  </body>
+</html>

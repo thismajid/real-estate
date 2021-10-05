@@ -1,0 +1,48 @@
+<div class="topbar-wrap">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-4">
+        <ul class="social_media style_none">
+          <% if (settings[0].telegram) { %>
+          <li>
+            <a href="<%= settings[0].telegram %>"
+              ><i class="fab fa-telegram"></i
+            ></a>
+          </li>
+          <% } %> <% if (settings[0].facebook) { %>
+          <li>
+            <a href="<%= settings[0].facebook %>"
+              ><i class="fab fa-facebook"></i
+            ></a>
+          </li>
+          <% } %> <% if (settings[0].twitter) { %>
+          <li>
+            <a href="<%= settings[0].twitter %>"
+              ><i class="fab fa-twitter"></i
+            ></a>
+          </li>
+          <% } %> <% if (settings[0].instagram) { %>
+          <li>
+            <a href="<%= settings[0].instagram %>"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+      <div class="col-lg-6 col-md-8">
+        <div class="top_right">
+          <div class="topbar_phone">
+            <a href="#"
+              ><i class="fas fa-phone-alt" aria-hidden="true"></i>
+              <%= settings[0].tell %>
+            </a>
+          </div>
+          <div class="topbar_login">
+            <a href="/property/submit"> ثبت ملک</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

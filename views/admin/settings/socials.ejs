@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <%- include('../../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>تنظیمات</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin"
+            role="tab"
+          >
+            پنل مدیریت
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/users/all"
+            role="tab"
+          >
+            مدیریت کاربران
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/status"
+            role="tab"
+          >
+            مدیریت وضعیت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/categories"
+            role="tab"
+          >
+            مدیریت دسته بندی املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/facility"
+            role="tab"
+          >
+            مدیریت امکانات املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties"
+            role="tab"
+          >
+            مدیریت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/submit"
+            role="tab"
+          >
+            ثبت ملک
+          </a>
+          <% if(user.role == 'super admin' || user.role == 'admin') { %> <%
+          if(unreadMessagesCount > 0) { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+            <span class="badge badge-danger mr-1"
+              ><%= unreadMessagesCount %></span
+            >
+          </a>
+          <% } else { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+          </a>
+          <% } %> <% } %>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/settings"
+            role="tab"
+          >
+            تنظیمات
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-8 col-lg-10">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/">صفحه اصلی</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/about">درباره ما</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/contact">اطلاعات تماس</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              شبکه های اجتماعی
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/bot">ربات تلگرام</a>
+            </li>
+          </ol>
+        </nav>
+        <div class="row">
+          <div class="col-12 mt-5">
+            <div class="col-6 m-auto">
+              <div class="card">
+                <div class="card-header bg-dark text-light">
+                  تنظیمات شبکه های اجتماعی
+                </div>
+                <div class="card-body">
+                  <div>
+                    <label class="text-muted">اینستاگرام : </label>
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="instagram"
+                        value="<%= socialNetwork.instagram %>"
+                        style="direction: ltr !important"
+                      />
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="gender3"
+                          >/instagram.com</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="text-muted">تلگرام : </label>
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="telegram"
+                        value="<%= socialNetwork.telegram %>"
+                        style="direction: ltr !important"
+                      />
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="gender3"
+                          >/t.me</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="text-muted">توئیتر : </label>
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="twitter"
+                        value="<%= socialNetwork.twitter %>"
+                        style="direction: ltr !important"
+                      />
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="gender3"
+                          >/twitter.com</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="text-muted">فیسبوک : </label>
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="facebook"
+                        value="<%= socialNetwork.facebook %>"
+                        style="direction: ltr !important"
+                      />
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="gender3"
+                          >/fb.com</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <button class="btn btn-primary mt-5" id="socialNetworksBTN">
+                    ثبت تغییرات
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../../partials/scripts') %>
+
+    <script src="/javascripts/admin/settings/socials.js"></script>
+  </body>
+</html>

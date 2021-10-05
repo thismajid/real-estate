@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
+    />
+
+    <link rel="stylesheet" href="/stylesheets/table.css" />
+    <link rel="stylesheet" href="/stylesheets/tableUsers.css" />
+    <!-- Bootstrap CSS -->
+    <%- include('../../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>مدیریت املاک</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin"
+            role="tab"
+          >
+            پنل مدیریت
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/users/all"
+            role="tab"
+          >
+            مدیریت کاربران
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/status"
+            role="tab"
+          >
+            مدیریت وضعیت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/categories"
+            role="tab"
+          >
+            مدیریت دسته بندی املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/facility"
+            role="tab"
+          >
+            مدیریت امکانات املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/properties"
+            role="tab"
+          >
+            مدیریت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/submit"
+            role="tab"
+          >
+            ثبت ملک
+          </a>
+          <% if(user.role == 'super admin' || user.role == 'admin') { %> <%
+          if(unreadMessagesCount > 0) { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+            <span class="badge badge-danger mr-1"
+              ><%= unreadMessagesCount %></span
+            >
+          </a>
+          <% } else { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+          </a>
+          <% } %> <% } %> <% if(user.role == 'super admin') { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/settings"
+            role="tab"
+          >
+            تنظیمات
+          </a>
+          <% } %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+
+      <div class="container-lg col-sm-12 col-md-8 col-lg-10">
+        <div class="table-responsive">
+          <div class="table-wrapper">
+            <div class="table-title">
+              <div class="row">
+                <div class="col-4 col-md-6">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" style="background: white">
+                      <li class="breadcrumb-item">
+                        <a href="/admin/properties">املاک فعال</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">
+                        املاک در انتظار تایید
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+                <div class="col-4 col-md-6 mb-4">
+                  <div class="search-box">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        id="search"
+                        class="form-control"
+                        placeholder="جستجو"
+                        style="border: 2px solid #0000006e"
+                      />
+                      <span class="input-group-addon"
+                        ><i class="fa fa-search mr-2"></i
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <table class="table table-striped text-center">
+              <thead class="bg-dark text-light">
+                <tr>
+                  <th>#</th>
+                  <th>عنوان</th>
+                  <th width="25%">توضیحات</th>
+                  <th>نوع قرارداد</th>
+                  <th>دسته بندی</th>
+                  <th>شهر</th>
+                  <th>منطقه</th>
+                  <th style="width: 12%">عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let index = 0; index < properties.length; index++) { %>
+                <tr>
+                  <td><%= index+1 %></td>
+                  <td><%= properties[index].title %></td>
+                  <td><%= properties[index].description %></td>
+                  <td><%= properties[index].status.name %></td>
+                  <td><%= properties[index].category.name %></td>
+                  <td><%= properties[index].city %></td>
+                  <td><%= properties[index].region %></td>
+
+                  <td>
+                    <a
+                      class="edit ml-3 pendingProperty"
+                      title="تایید ملک"
+                      data-toggle="tooltip"
+                      ><i
+                        class="fas fa-check-square text-info"
+                        id="pending-<%= properties[index].propertyID %>"
+                      ></i
+                    ></a>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../../partials/scripts') %>
+
+    <script src="/javascripts/admin/property/tableSearch.js"></script>
+    <script src="/javascripts/admin/property/pendingProperty.js"></script>
+  </body>
+</html>

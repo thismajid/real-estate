@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <%- include('../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>ورود</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <!--Inner Content Start-->
+    <div class="innercontent">
+      <div class="container">
+        <div class="card mx-auto loginWrp wow fadeInUp">
+          <div class="card-body">
+            <h4 class="card-title mb-4">ورود</h4>
+            <form>
+              <div id="alertDIV"></div>
+              <a
+                href="/auth/google"
+                class="btn btn-primary btn-block google_plus mb-4"
+              >
+                <i class="fab fa-google-plus-g"></i
+                ><span class="mr-2">ورود با حساب گوگل</span></a
+              >
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="نام کاربری"
+                  type="text"
+                  name="username"
+                  id="username"
+                  required
+                />
+              </div>
+              <!-- form-group// -->
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  placeholder="کلمه عبور"
+                  type="password"
+                  name="password"
+                  id="password"
+                  required
+                />
+              </div>
+              <!-- form-group// -->
+
+              <div class="form-group">
+                <a href="/auth/reset" class="float-left forgot_text"
+                  >رمز عبور را فراموش کرده اید؟</a
+                >
+                <label class="float-right custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    checked
+                    id="rememberMe"
+                  />
+                  <span class="custom-control-label"> مرا به خاطر بسپار </span>
+                </label>
+              </div>
+              <!-- form-group// -->
+            </form>
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn login_btn btn-primary btn-block"
+                id="loginBTN"
+              >
+                ورود
+              </button>
+            </div>
+          </div>
+          <!-- card-body.// -->
+        </div>
+        <p class="text-center mt-4">
+          حساب کاربری ندارید؟ <a href="/auth/register">ثبت نام</a>
+        </p>
+      </div>
+    </div>
+
+    <!--Inner Content End-->
+
+    <!--Footer Start-->
+    <%- include('../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../partials/scripts') %>
+    <script src="/javascripts/auth/login.js"></script>
+  </body>
+</html>

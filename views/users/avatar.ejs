@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <%- include('../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>ویرایش عکس حساب کاربری</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            href="/users/profile"
+            role="tab"
+          >
+            ویرایش حساب کاربری
+          </a>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="#"
+            role="tab"
+          >
+            ویرایش عکس حساب کاربری
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/users/reset/password/<%= user._id %>"
+            role="tab"
+          >
+            تغییر کلمه عبور
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-8 col-lg-10">
+        <div class="card mx-auto loginWrp wow fadeInUp">
+          <div class="card-body">
+            <h4 class="card-title mb-4">ویرایش عکس حساب کاربری</h4>
+            <form>
+              <div id="alertDIV"></div>
+              <input
+                type="text"
+                class="d-none userID"
+                id="userID-<%= user._id %>"
+              />
+              <div class="form-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="avatar" />
+                  <label
+                    class="custom-file-label"
+                    for="customFile"
+                    style="padding: 0.375rem 5.75rem !important"
+                    >انتخاب عکس</label
+                  >
+                </div>
+              </div>
+
+              <!-- form-group// -->
+            </form>
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn login_btn btn-primary btn-block"
+                id="submitBTN"
+              >
+                ثبت تغییر
+              </button>
+            </div>
+          </div>
+          <!-- card-body.// -->
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../partials/scripts') %>
+
+    <script>
+      $(".custom-file-input").on("change", function () {
+        var files = Array.from(this.files);
+        var fileName = files
+          .map((f) => {
+            return f.name;
+          })
+          .join(", ");
+        $(this)
+          .siblings(".custom-file-label")
+          .addClass("selected")
+          .html(fileName);
+      });
+    </script>
+    <script src="/javascripts/users/changeAvatar.js"></script>
+  </body>
+</html>

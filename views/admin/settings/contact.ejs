@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="/stylesheets/leaflet.css" />
+    <script src="/javascripts/leaflet.js"></script>
+    <!-- Bootstrap CSS -->
+    <%- include('../../partials/headers') %>
+
+    <style>
+      #map {
+        height: 80%;
+      }
+    </style>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>تنظیمات</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin"
+            role="tab"
+          >
+            پنل مدیریت
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/users/all"
+            role="tab"
+          >
+            مدیریت کاربران
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/status"
+            role="tab"
+          >
+            مدیریت وضعیت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/categories"
+            role="tab"
+          >
+            مدیریت دسته بندی املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/facility"
+            role="tab"
+          >
+            مدیریت امکانات املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties"
+            role="tab"
+          >
+            مدیریت املاک
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/properties/submit"
+            role="tab"
+          >
+            ثبت ملک
+          </a>
+          <% if(user.role == 'super admin' || user.role == 'admin') { %> <%
+          if(unreadMessagesCount > 0) { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+            <span class="badge badge-danger mr-1"
+              ><%= unreadMessagesCount %></span
+            >
+          </a>
+          <% } else { %>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/admin/messages"
+            role="tab"
+          >
+            پیام های دریافتی
+          </a>
+          <% } %> <% } %>
+          <a
+            class="list-group-item list-group-item-action active"
+            href="/admin/settings"
+            role="tab"
+          >
+            تنظیمات
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-8 col-lg-10">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/admin/settings">صفحه اصلی</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/about">درباره ما</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              اطلاعات تماس
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/socials">شبکه های اجتماعی</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/admin/settings/bot">ربات تلگرام</a>
+            </li>
+          </ol>
+        </nav>
+        <div class="row">
+          <div class="col-12 mt-5">
+            <div class="col-6 m-auto">
+              <div class="card">
+                <div class="card-header bg-dark text-light">
+                  تنظیمات اطلاعات تماس
+                </div>
+                <div class="card-body">
+                  <div>
+                    <label for="addressInput">آدرس : </label>
+                    <input
+                      id="addressInput"
+                      class="form-control"
+                      type="text"
+                      value="<%= settings[0].address %>"
+                    />
+                  </div>
+                  <div class="mt-3">
+                    <label for="emailInput">آدرس ایمیل : </label>
+                    <input
+                      id="emailInput"
+                      class="form-control"
+                      type="text"
+                      style="direction: ltr !important"
+                      value="<%= settings[0].email %>"
+                    />
+                  </div>
+                  <div class="mt-3">
+                    <label for="tellInput">شماره تلفن : </label>
+                    <input
+                      id="tellInput"
+                      class="form-control"
+                      type="text"
+                      style="direction: ltr !important"
+                      value="<%= settings[0].tell %>"
+                    />
+                  </div>
+                  <div class="mt-3">
+                    <input
+                      class="d-none"
+                      type="text"
+                      id="lat"
+                      value="<%= settings[0].lat %>"
+                    />
+                    <input
+                      class="d-none"
+                      type="text"
+                      id="lng"
+                      value="<%= settings[0].lng %>"
+                    />
+                    <label for="tellInput">موقعیت روی نقشه : </label>
+                    <div id="mapdiv"></div>
+                  </div>
+                  <button class="btn btn-primary mt-5" id="addressTellEmailBTN">
+                    ثبت تغییرات
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../../partials/scripts') %>
+    <script src="/javascripts/admin/settings/contact.js"></script>
+  </body>
+</html>

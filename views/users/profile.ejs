@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <%- include('../partials/headers') %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <!--Topbar Start-->
+    <%- include('../partials/top-navbar.ejs') %>
+    <!--Topbar End-->
+
+    <!--Header Start-->
+    <%- include('../partials/navbar') %>
+    <!--Header End-->
+
+    <!--Inner Heading Start-->
+    <div class="innerHeading">
+      <div class="container">
+        <h1>حساب کاربری</h1>
+      </div>
+    </div>
+    <!--Inner Heading End-->
+
+    <div class="row m-5">
+      <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action active"
+            href="#"
+            role="tab"
+          >
+            ویرایش حساب کاربری
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/users/avatar"
+            role="tab"
+          >
+            ویرایش عکس حساب کاربری
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/users/reset/password/<%= user._id %>"
+            role="tab"
+          >
+            تغییر کلمه عبور
+          </a>
+          <a
+            class="list-group-item list-group-item-action"
+            href="/auth/logout"
+            role="tab"
+          >
+            خروج
+          </a>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-8 col-lg-10">
+        <div class="card mx-auto wow fadeInUp w-75">
+          <div class="card-body">
+            <h4 class="card-title mb-4">ویرایش حساب کاربری</h4>
+            <form>
+              <div id="alertDIV"></div>
+              <div class="form-group">
+                <label for="firstName">نام:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  value="<%= user.firstName %>"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastName">نام خانوادگی:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value="<%= user.lastName %>"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="username">نام کاربری:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="username"
+                  id="username"
+                  value="<%= user.username %>"
+                  disabled
+                  required
+                />
+              </div>
+              <!-- form-group// -->
+              <div class="form-group">
+                <label for="email">آدرس ایمیل:</label>
+                <input
+                  class="form-control"
+                  type="email"
+                  name="email"
+                  id="email"
+                  value="<%= user.email %>"
+                  disabled
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="mobileNumber">شماره موبایل:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="mobileNumber"
+                  id="mobileNumber"
+                  value="<%= user.mobileNumber %>"
+                />
+              </div>
+              <!-- form-group// -->
+
+              <div class="form-group">
+                <a
+                  href="/users/reset/password/<%= user._id %>"
+                  class="float-left forgot_text mb-4"
+                  >تغییر رمز عبور</a
+                >
+              </div>
+              <!-- form-group// -->
+            </form>
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn login_btn btn-primary btn-block w-25 m-auto mt-5"
+                id="profileEditBTN"
+              >
+                ثبت تغییرات
+              </button>
+            </div>
+          </div>
+          <!-- card-body.// -->
+        </div>
+      </div>
+    </div>
+
+    <!--Footer Start-->
+    <%- include('../partials/footer') %>
+    <!--Footer End-->
+
+    <%- include('../partials/scripts') %>
+
+    <script src="/javascripts/profile/profileEdit.js"></script>
+  </body>
+</html>
